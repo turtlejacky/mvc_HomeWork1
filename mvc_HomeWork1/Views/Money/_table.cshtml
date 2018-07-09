@@ -1,0 +1,39 @@
+﻿@using mvc_HomeWork1.Models
+@model mvc_HomeWork1.Models.ViewModel.MoneyViewModel
+@{
+    ViewBag.Title = "View";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>#</th>
+                <th>類別</th>
+                <th>日期</th>
+                <th>金額</th>
+            </tr>
+            @for (int i = 0; i < Model.Records.Count; i++)
+            {
+                var record = Model.Records[i];
+                <tr>
+                    <td>@(i + 1)</td>
+                    @if (record.Type == RecordType.Payout)
+                    {
+                        <td>支出</td>
+                    }
+                    else
+                    {
+                        <td>收入</td>
+                    }
+                    <td>@record.Date.ToString("yyyy/MM/dd")</td>
+                    <td>@record.Money</td>
+                </tr>
+
+            }
+
+        </table>
+    </div>
+</div>
+
