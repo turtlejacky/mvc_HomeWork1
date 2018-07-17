@@ -89,3 +89,7 @@ C:\Users\neil.tao83\source\repos\mvc_HomeWork1\mvc_HomeWork1\obj\Debug\mvc_HomeW
 C:\Users\neil.tao83\source\repos\mvc_HomeWork1\mvc_HomeWork1\obj\Debug\mvc_HomeWork1.csproj.CopyComplete
 C:\Users\neil.tao83\source\repos\mvc_HomeWork1\mvc_HomeWork1\obj\Debug\mvc_HomeWork1.dll
 C:\Users\neil.tao83\source\repos\mvc_HomeWork1\mvc_HomeWork1\obj\Debug\mvc_HomeWork1.pdb
+C:\Users\neil.tao83\source\repos\mvc_HomeWork1\mvc_HomeWork1\bin\EntityFramework.dll
+C:\Users\neil.tao83\source\repos\mvc_HomeWork1\mvc_HomeWork1\bin\EntityFramework.SqlServer.dll
+C:\Users\neil.tao83\source\repos\mvc_HomeWork1\mvc_HomeWork1\bin\EntityFramework.xml
+C:\Users\neil.tao83\source\repos\mvc_HomeWork1\mvc_HomeWork1\bin\EntityFramework.SqlServer.xml

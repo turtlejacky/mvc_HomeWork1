@@ -1,7 +1,9 @@
 ﻿@using mvc_HomeWork1.Models
+@using WebGrease.Css.Extensions
 @model mvc_HomeWork1.Models.ViewModel.MoneyViewModel
 @{
     ViewBag.Title = "View";
+    var indexOfRecord = 0;
 }
 
 
@@ -14,19 +16,12 @@
                 <th>日期</th>
                 <th>金額</th>
             </tr>
-            @for (int i = 0; i < Model.Records.Count; i++)
+            @foreach (var record in  Model.Records)
             {
-                var record = Model.Records[i];
+                ++indexOfRecord;
                 <tr>
-                    <td>@(i + 1)</td>
-                    @if (record.Type == RecordType.Payout)
-                    {
-                        <td>支出</td>
-                    }
-                    else
-                    {
-                        <td>收入</td>
-                    }
+                    <td>@(indexOfRecord)</td>
+                    <td>@record.Type</td>
                     <td>@record.Date.ToString("yyyy/MM/dd")</td>
                     <td>@record.Money</td>
                 </tr>

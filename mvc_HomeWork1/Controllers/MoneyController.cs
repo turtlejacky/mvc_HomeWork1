@@ -1,36 +1,54 @@
-﻿using System;
+﻿using mvc_HomeWork1.Models;
+using mvc_HomeWork1.Models.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using mvc_HomeWork1.Models;
-using mvc_HomeWork1.Models.ViewModel;
 
 namespace mvc_HomeWork1.Controllers
 {
     public class MoneyController : Controller
     {
+        private readonly SkillTree _skillTree = new SkillTree();
+
         // GET: Money
         public ActionResult Index()
         {
-            var moneyViewModel = new MoneyViewModel {Records = GetMoneyRecords()};
+            var moneyViewModel = new MoneyViewModel { Records = GetRecordFromDb() };
             return View(moneyViewModel);
         }
 
-        private List<AccountRecord> GetMoneyRecords()
+        [HttpPost]
+        public ActionResult Index(MoneyViewModel recordViewModel)
         {
-            var accountRecords = new List<AccountRecord>();
-            for (int i = 0; i < 50; i++)
+            recordViewModel.Records = GetRecordFromDb();
+            return View(recordViewModel);
+            //_skillTree.AccountBooks.Add(record);
+        }
+
+        private IEnumerable<AccountRecord> GetMoneyRecords()
+        {
+            var random = new Random();
+            for (var i = 0; i < 50; i++)
             {
-                accountRecords.Add(new AccountRecord()
+                yield return new AccountRecord()
                 {
                     Date = DateTime.Now.AddDays(-i),
-                    Money = i * 100,
+                    Money = random.Next(1, 100) * 100,
                     Type = i % 2 == 0 ? RecordType.Payout : RecordType.Income
-
-                });
+                };
             }
-            return accountRecords;
+        }
+
+        private IEnumerable<AccountRecord> GetRecordFromDb()
+        {
+            return _skillTree.AccountBooks.Select(x => new AccountRecord()
+            {
+                Date = x.Dateee,
+                Money = x.Amounttt,
+                Remarks = x.Remarkkk,
+                Type = (RecordType)x.Categoryyy
+            });
         }
     }
 }
