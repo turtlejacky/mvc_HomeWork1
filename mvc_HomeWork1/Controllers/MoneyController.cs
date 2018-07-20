@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using mvc_HomeWork1.Models.Enum;
 
 namespace mvc_HomeWork1.Controllers
 {
@@ -21,23 +22,22 @@ namespace mvc_HomeWork1.Controllers
         [HttpPost]
         public ActionResult Index(MoneyViewModel recordViewModel)
         {
-            recordViewModel.Records = GetRecordFromDb();
-            return View(recordViewModel);
-            //_skillTree.AccountBooks.Add(record);
-        }
-
-        private IEnumerable<AccountRecord> GetMoneyRecords()
-        {
-            var random = new Random();
-            for (var i = 0; i < 50; i++)
+            if (ModelState.IsValid)
             {
-                yield return new AccountRecord()
+                _skillTree.AccountBooks.Add(new AccountBook()
                 {
-                    Date = DateTime.Now.AddDays(-i),
-                    Money = random.Next(1, 100) * 100,
-                    Type = i % 2 == 0 ? RecordType.Payout : RecordType.Income
-                };
+                    Id = Guid.NewGuid(),
+                    Remarkkk = recordViewModel.RecordInput.Remarks,
+                    Amounttt = (int)recordViewModel.RecordInput.Money,
+                    Categoryyy = (int)recordViewModel.RecordInput.Type,
+                    Dateee = recordViewModel.RecordInput.Date
+                });
+                _skillTree.SaveChanges();
+                ModelState.Clear();
+                return RedirectToAction("Index");
             }
+
+            return View(recordViewModel);
         }
 
         private IEnumerable<AccountRecord> GetRecordFromDb()
@@ -48,7 +48,7 @@ namespace mvc_HomeWork1.Controllers
                 Money = x.Amounttt,
                 Remarks = x.Remarkkk,
                 Type = (RecordType)x.Categoryyy
-            });
+            }).OrderByDescending(x=>x.Date);
         }
     }
 }

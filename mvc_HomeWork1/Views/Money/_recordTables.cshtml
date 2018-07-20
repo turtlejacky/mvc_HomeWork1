@@ -1,5 +1,5 @@
 ﻿@using mvc_HomeWork1.Models
-@using WebGrease.Css.Extensions
+@using mvc_HomeWork1.Models.Enum
 @model mvc_HomeWork1.Models.ViewModel.MoneyViewModel
 @{
     ViewBag.Title = "View";
@@ -16,19 +16,29 @@
                 <th>日期</th>
                 <th>金額</th>
             </tr>
-            @foreach (var record in  Model.Records)
+            @foreach (var record in Model.Records)
             {
-                ++indexOfRecord;
                 <tr>
-                    <td>@(indexOfRecord)</td>
-                    <td>@record.Type</td>
+                    <td>@(++indexOfRecord)</td>
+                    @RecordTypeHtml(record)
                     <td>@record.Date.ToString("yyyy/MM/dd")</td>
                     <td>@record.Money</td>
-                </tr>
 
+                </tr>
             }
 
         </table>
     </div>
 </div>
 
+@helper RecordTypeHtml(AccountRecord record)
+    {
+    if (record.Type == RecordType.Income)
+    {
+        <td style="color: blue"> @Html.EnumDisplayNameFor(record.Type) </td>
+    }
+    else
+    {
+        <td style="color: red"> @Html.EnumDisplayNameFor(record.Type) </td> 
+    }
+}
